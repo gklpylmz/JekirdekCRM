@@ -1,15 +1,34 @@
+using JekirdekCRM.DAL.Context;
+using JekirdekCRM.ENTITIES.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//DBContext Service Injection
+builder.Services.AddDbContext<MyContext>(opitons => opitons   
+    .UseNpgsql(builder.Configuration.GetConnectionString("MyConnection")));
+
+//Identity Injection
+builder.Services.AddIdentity<User,IdentityRole<int>>(x =>
+{
+    x.Password.RequireNonAlphanumeric = false;
+    x.Password.RequireDigit = false;
+    x.Password.RequireLowercase = false;
+    x.Password.RequireUppercase = false;
+    x.Password.RequiredLength = 1;
+}).AddEntityFrameworkStores<MyContext>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
