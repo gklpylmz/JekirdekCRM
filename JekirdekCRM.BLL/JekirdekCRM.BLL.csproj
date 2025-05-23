@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JekirdekCRM.DAL\JekirdekCRM.DAL.csproj" />
+    <ProjectReference Include="..\JekirdekCRM.ENTITIES\JekirdekCRM.ENTITIES.csproj" />
+  </ItemGroup>
+
 </Project>
