@@ -1,0 +1,6 @@
+@JekirdekCRM.API_HostAddress = http://localhost:5279
+
+GET {{JekirdekCRM.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

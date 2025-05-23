@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JekirdekCRM.ENTITIES", "JekirdekCRM.ENTITIES\JekirdekCRM.ENTITIES.csproj", "{1C015624-8ED1-4C96-BF77-D7A7036E1252}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JekirdekCRM.DAL", "JekirdekCRM.DAL\JekirdekCRM.DAL.csproj", "{D86CC710-C289-4961-ACD5-F5DCA98C90B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JekirdekCRM.BLL", "JekirdekCRM.BLL\JekirdekCRM.BLL.csproj", "{A8966529-EAB7-4748-822B-519C34F2366A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JekirdekCRM.DTO", "JekirdekCRM.DTO\JekirdekCRM.DTO.csproj", "{4DD5F48F-9761-48B4-82F5-4BEFC98D1A0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JekirdekCRM.API", "JekirdekCRM.API\JekirdekCRM.API.csproj", "{C5AB6D4D-171B-49C2-A142-8A23D557FBCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JekirdekCRM.WEBUI", "JekirdekCRM.WEBUI\JekirdekCRM.WEBUI.csproj", "{7ACC4455-7D22-4F9E-A9F6-7E52311EA239}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C015624-8ED1-4C96-BF77-D7A7036E1252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C015624-8ED1-4C96-BF77-D7A7036E1252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C015624-8ED1-4C96-BF77-D7A7036E1252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C015624-8ED1-4C96-BF77-D7A7036E1252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D86CC710-C289-4961-ACD5-F5DCA98C90B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D86CC710-C289-4961-ACD5-F5DCA98C90B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D86CC710-C289-4961-ACD5-F5DCA98C90B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D86CC710-C289-4961-ACD5-F5DCA98C90B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8966529-EAB7-4748-822B-519C34F2366A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8966529-EAB7-4748-822B-519C34F2366A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8966529-EAB7-4748-822B-519C34F2366A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8966529-EAB7-4748-822B-519C34F2366A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DD5F48F-9761-48B4-82F5-4BEFC98D1A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DD5F48F-9761-48B4-82F5-4BEFC98D1A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DD5F48F-9761-48B4-82F5-4BEFC98D1A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DD5F48F-9761-48B4-82F5-4BEFC98D1A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5AB6D4D-171B-49C2-A142-8A23D557FBCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5AB6D4D-171B-49C2-A142-8A23D557FBCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5AB6D4D-171B-49C2-A142-8A23D557FBCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5AB6D4D-171B-49C2-A142-8A23D557FBCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACC4455-7D22-4F9E-A9F6-7E52311EA239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACC4455-7D22-4F9E-A9F6-7E52311EA239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACC4455-7D22-4F9E-A9F6-7E52311EA239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACC4455-7D22-4F9E-A9F6-7E52311EA239}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDE44569-D68F-46FD-8365-1FE37E2B1801}
+	EndGlobalSection
+EndGlobal
