@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.16">
@@ -17,12 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\JekirdekCRM.BLL\JekirdekCRM.BLL.csproj" />
     <ProjectReference Include="..\JekirdekCRM.DAL\JekirdekCRM.DAL.csproj" />
+    <ProjectReference Include="..\JekirdekCRM.DTO\JekirdekCRM.DTO.csproj" />
     <ProjectReference Include="..\JekirdekCRM.ENTITIES\JekirdekCRM.ENTITIES.csproj" />
   </ItemGroup>
 
