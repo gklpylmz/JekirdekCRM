@@ -1,0 +1,62 @@
+﻿@page
+@model JekirdekCRM.WEBUI.Pages.Customer.IndexModel
+@{
+    ViewData["Title"] = "Müşteri Listesi";
+    ViewBag.Header = "Müşteri İşlemleri";
+}
+<div class="card">
+    <div class="card-body">
+
+        <form method="get" class="row g-3 align-items-center mb-4">
+            <div class="col-md-4">
+                <input type="text" name="FirstName" value="@Model.FilterCustomerRequest.FirstName" class="form-control" placeholder="Müşteri Ara..." />
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="Region" value="@Model.FilterCustomerRequest.Region" class="form-control" placeholder="Müşteri Ara..." />
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-warning">Filtrele</button>
+            </div>
+
+        </form>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-page="AddCustomer" class="btn btn-primary w-100" style="margin-bottom:15px">+ Yeni Müşteri Ekle</a>
+        }
+
+        <table class="table table-hover rounded shadow-sm">
+            <thead>
+                <tr>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Email</th>
+                    <th>Bölge</th>
+                    <th style="width: 150px;">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var customer in Model.Customers)
+                {
+                    <tr>
+                        <td>@customer.FirstName</td>
+                        <td>@customer.LastName</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.Region</td>
+                        <td class="actions">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-page="UpdateCustomer" asp-route-id="@customer.Id" class="btn btn-sm btn-primary me-1">Düzenle</a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@customer.Id" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Sil</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
