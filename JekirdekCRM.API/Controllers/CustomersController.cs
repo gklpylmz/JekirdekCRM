@@ -2,6 +2,7 @@
 using JekirdekCRM.BLL.ManagerServices.Abstracts;
 using JekirdekCRM.DTO.CustomerDtos;
 using JekirdekCRM.ENTITIES.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,6 @@ namespace JekirdekCRM.API.Controllers
             _mapper = mapper;
             _logger = logger;
         }
-
         [HttpGet]
         public IActionResult GetCustomerListAll()
         {
@@ -40,36 +40,42 @@ namespace JekirdekCRM.API.Controllers
            
         }
 
-        [HttpGet("GetCustomerByRegion")]
-        public IActionResult GetCustomerByRegion(string region)
+        [HttpGet("GetCustomerStatistics")]
+        public IActionResult GetCustomerStatistics()
         {
             try
             {
-                var values = _customerManager.GetCustomerByRegion(region);
-                _logger.LogInformation("Müşteri bölgeye göre listelendi.");
-                return Ok(_mapper.Map<List<GetCustomerDto>>(values));
+                var customerStats = new CustomerStatisticDto
+                {
+                    ActiveCustomerCount = _customerManager.GetActiveCustomerCount(),
+                    PassiveCustomerCount = _customerManager.GetPassiveCustomerCount(),
+                    DistinctRegionCustomerCount = _customerManager.GetDistinctRegionCount(),
+
+                };
+                _logger.LogInformation("Müşteri istatistikleri getirildi.");
+                return Ok(customerStats);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Bölgeye göre müşteri listelenirken hata oluştu.");
-                return StatusCode(500, "Müşteriler listelenirken bir hata oluştu.");
+                _logger.LogError(ex, "Müşteriler istatistikleri alınırken hata oluştu.");
+                return StatusCode(500, "Müşteriler istatistikleri alınırken hata oluştu.");
             }
-            
-            
+
         }
-        [HttpGet("GetCustomerByFirstName")]
-        public IActionResult GetCustomerByFirstName(string firstName)
+
+        [HttpGet("GetCustomerByFirstNameAndRegion")]
+        public IActionResult GetCustomerByFirstNameAndRegion(string? firstName,string? region)
         {
             try
             {
-                var values = _customerManager.GetCustomerByFirtName(firstName);
-                _logger.LogInformation("Müşteri isime göre listelendi.");
+                var values = _customerManager.GetCustomerByFirstNameAndRegion(firstName,region);
+                _logger.LogInformation("Filtrelere göre müşteriler listelendi.");
                 return Ok(_mapper.Map<List<GetCustomerDto>>(values));
             }
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "İsme göre müşteri listelenirken hata oluştu.");
+                _logger.LogError(ex, "Filtrelere göre müşteri listelenirken hata oluştu.");
                 return StatusCode(500, "Müşteriler listelenirken bir hata oluştu.");
             }
             
@@ -82,7 +88,7 @@ namespace JekirdekCRM.API.Controllers
                 var value = _customerManager.GetById(id);
                 if (value ==null)
                 {
-                    _logger.LogInformation("Belirtilen müşteri bulunamadı.");
+                    _logger.LogInformation("Belirtilen müşteri bulunamadı. Müşteri Id :"+id);
                     return NotFound();
                 }
                 _logger.LogInformation("Belirtilen müşteri getirildi.");
@@ -91,12 +97,12 @@ namespace JekirdekCRM.API.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Müşteri ID ile filtreleme yapılırken hata oluştu.");
+                _logger.LogError(ex, "Müşteri ID ile filtreleme yapılırken hata oluştu. Müşteri Id :" + id);
                 return StatusCode(500, "Müşteri bilgisi alınırken hata oluştu.");
             }
            
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult UpdateCustomer(UpdateCustomerDto updateCustomerDto)
         {
@@ -104,31 +110,31 @@ namespace JekirdekCRM.API.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    _logger.LogWarning("Geçersiz güncelleme isteği.");
+                    _logger.LogWarning("Geçersiz güncelleme isteği. Müşteri Id :" + updateCustomerDto.Id);
                     return BadRequest();
                 }
                 var customer = _customerManager.GetById(updateCustomerDto.Id);
 
                 if (customer == null)
                 {
-                    _logger.LogWarning("Güncellenmek istenen müşteri bulunamadı.");
+                    _logger.LogWarning("Güncellenmek istenen müşteri bulunamadı. Müşteri Id :" + updateCustomerDto.Id);
                     return NotFound();
                 }
                 _mapper.Map(updateCustomerDto, customer);
                 _customerManager.Update(customer);
-                _logger.LogInformation("Müşteri başarıyla güncellendi");
+                _logger.LogInformation("Müşteri başarıyla güncellendi. Müşteri Id :"+updateCustomerDto.Id);
                 return Ok(customer);
             }
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Müşteri güncellenirken hata oluştu.");
+                _logger.LogError(ex, "Müşteri güncellenirken hata oluştu. Müşteri Id :" + updateCustomerDto.Id);
                 return StatusCode(500, "Müşteri güncellenirken hata oluştu.");
             }
                        
             
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult CreateCustomer(CreateCustomerDto createCustomerDto)
         {
@@ -151,7 +157,55 @@ namespace JekirdekCRM.API.Controllers
             }
             
         }
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("soft/{id}")]
+        public IActionResult DeleteCustomer(int id)
+        {
+            try
+            {
+                var value = _customerManager.GetById(id);
+                if (value ==null)
+                {
+                    _logger.LogWarning("Müşteri bulunamadı. Müşteri Id : "+id);
+                    return NotFound("Müşteri bulunamadı");
+                }
 
+                _customerManager.Delete(value);
+                _logger.LogInformation("Müşteri başarıyla pasife çekildi. Müşteri Id : " + id);
+                return Ok();
 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Müşteri pasife çekme işlemi sırasında hata oluştu. Müşteri Id : " + id);
+                return StatusCode(500,"Sunucu hatası oluştu");
+            }
+          
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("hard/{id}")]
+        public IActionResult DestroyCustomer(int id)
+        {
+            try
+            {
+                var value = _customerManager.GetById(id);
+                if (value == null)
+                {
+                    _logger.LogWarning("Müşteri bulunamadı. Müşteri Id : " + id);
+                    return NotFound("Müşteri bulunamadı");
+                }
+
+                _customerManager.Destroy(value);
+                _logger.LogInformation("Müşteri başarıyla silindi. Müşteri Id : " + id);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Müşteri silme işlemi sırasında hata oluştu. Müşteri Id : " + id);
+                return StatusCode(500, "Sunucu hatası oluştu");
+            }
+
+        }
     }
 }

@@ -1,0 +1,39 @@
+﻿@page
+@model JekirdekCRM.WEBUI.Pages.Customer.UpdateCustomerModel
+@{
+    ViewData["Title"] = "Müşteri";
+    ViewBag.Header = "Müşteri Düzenleme";
+}
+
+<div class="card">
+    <div class="card-body">
+        <form method="post" class="row g-3">
+            <input type="hidden" asp-for="UpdateCustomerDto.Id" />
+
+            <div class="col-md-6">
+                <label for="FirstName" class="form-label">Ad</label>
+                <input asp-for="UpdateCustomerDto.FirstName" class="form-control" placeholder="Müşteri adı giriniz" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="LastName" class="form-label">Soyad</label>
+                <input asp-for="UpdateCustomerDto.LastName" class="form-control" placeholder="Müşteri soyadı giriniz" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="Email" class="form-label">Email</label>
+                <input asp-for="UpdateCustomerDto.Email" type="email" class="form-control" placeholder="Email adresi giriniz" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="Email" class="form-label">Bölge</label>
+                <input asp-for="UpdateCustomerDto.Region" class="form-control" placeholder="Bölge giriniz" />
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+                <a href="/Customer/Index" class="btn btn-secondary ms-2">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>

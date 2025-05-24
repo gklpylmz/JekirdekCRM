@@ -18,14 +18,22 @@ namespace JekirdekCRM.BLL.ManagerServices.Concretes
             _customerRepository = customerRepository;
         }
 
-        public List<Customer> GetCustomerByFirtName(string firstName)
+        public List<Customer> GetCustomerByFirstNameAndRegion(string? firstName = null, string? region = null)
         {
-            return _customerRepository.GetCustomerByFirtName(firstName);
+            return _customerRepository.GetCustomerByFirstNameAndRegion(firstName, region);
+        }
+        public int GetActiveCustomerCount()
+        {
+            return _customerRepository.GetActiveCustomerCount();
+        }
+        public int GetDistinctRegionCount()
+        {
+            return _customerRepository.GetDistinctRegionCount();
         }
 
-        public List<Customer> GetCustomerByRegion(string region)
+        public int GetPassiveCustomerCount()
         {
-            return _customerRepository.GetCustomerByRegion(region);
+            return _customerRepository.GetPassiveCustomerCount();
         }
     }
 }

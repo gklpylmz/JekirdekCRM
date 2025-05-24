@@ -10,7 +10,9 @@ namespace JekirdekCRM.DAL.Repositories.Abstracts
     public interface ICustomerRepository : IRepository<Customer>
     {
         //Customer's Special Methods
-        List<Customer> GetCustomerByRegion(string region);
-        List<Customer> GetCustomerByFirtName(string firstName);
+        List<Customer> GetCustomerByFirstNameAndRegion(string? firstName = null,string? region =null);
+        int GetActiveCustomerCount();
+        int GetPassiveCustomerCount();
+        int GetDistinctRegionCount();
     }
 }

@@ -1,10 +1,35 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Ana Sayfa";
+    ViewBag.Header = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="container">
+    <div class="row g-4">
+        <div class="col-12 col-md-4">
+            <div class="card text-center">
+                <h5 class="card-title">Aktif Müşteri</h5>
+                <h2 class="card-text text-primary">@Model.CustomerStatisticDto.ActiveCustomerCount</h2>
+                
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="card text-center">
+                <h5 class="card-title">Pasif Müşteri</h5>
+                <h2 class="card-text text-primary">@Model.CustomerStatisticDto.PassiveCustomerCount</h2>
+              
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="card text-center">
+                <h5 class="card-title">Müşteri Bölge Sayısı</h5>
+                <h2 class="card-text text-primary">@Model.CustomerStatisticDto.DistinctRegionCustomerCount</h2>
+              
+            </div>
+        </div>
+    </div>
 </div>
